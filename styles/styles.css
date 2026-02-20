@@ -1,1 +1,17 @@
 @import url("base.css");
+
+.task16{
+    animation: task16 2s linear infinite;
+}
+
+@keyframes task16{
+    0%{
+        transform: translateX(0px);
+    }
+    50%{
+        transform: translate(1150px);
+    }
+    100%{
+        transform: translateX(0px);
+    }
+}

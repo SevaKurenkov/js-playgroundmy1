@@ -278,11 +278,11 @@ document.addEventListener("DOMContentLoaded", () => {
     area.addEventListener('mousemove', (e) =>{
       if (drag == true){
         console.log(e)
-        let rect = item.getBoundingClientRect();
         offsetX = e.clientX;
         offsetY = e.clientY;
         item.style.left = `${offsetX}px`
         item.style.top = `${offsetY}px`
+        coords.textContent = `x: ${item.style.left}, y: ${item.style.top}`
       }
     })
     area.addEventListener('mouseup', (e) =>{

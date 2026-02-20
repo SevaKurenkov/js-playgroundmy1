@@ -241,4 +241,178 @@ document.addEventListener("DOMContentLoaded", () => {
 
   })
   }
+  //17
+  {
+    let area = document.querySelector("[data-js='t17-area']")
+    function randombox(){
+      let div = document.createElement('div')
+      div.style.position = 'absolute';
+      div.style.width = `${100}px`
+      div.style.height = `${100}px`
+      div.style.background = `#${111}`
+      let maxX = Math.max(0,area.clientWidth - 100)
+      let maxY = Math.max(0,area.clientHeight - 100)
+      div.style.left = `${Math.floor(Math.random() * maxX)}px`
+      div.style.top = `${Math.floor(Math.random() * maxY)}px`
+      area.append(div)
+    }
+    setInterval(randombox,1000)
+  }
+  //18
+  {
+    let area = document.querySelector("[data-js='t18-area']")
+    function randombox(){
+      let div = document.createElement('div')
+      div.style.position = 'absolute';
+      div.style.width = `75px`
+      div.style.height = `75px`
+      div.style.background = `#111`
+      let maxX = Math.max(0,area.clientWidth)
+      let maxY = Math.max(0,area.clientHeight - 100)
+      div.style.left = `${maxX}px`
+      div.style.top = `${Math.floor(maxY/2)}px`
+      let leftkol = maxX
+      area.append(div)
+      requestAnimationFrame(() => toleft(div, leftkol))
+    }
+
+    function toleft(div, leftkol){
+      div.style.left = `${leftkol--}px`
+      if (parseInt(div.style.left) <= -100){
+        div.remove()
+      }
+      requestAnimationFrame(() => toleft(div, leftkol))
+    }
+
+    setInterval(randombox,1000)
+  }
+
+  //19
+  {
+      {
+    let area = document.querySelector("[data-js='t19-area']")
+    function randombox(){
+      let div = document.createElement('div')
+      div.style.position = 'absolute';
+      div.style.width = `75px`
+      div.style.height = `75px`
+      div.style.background = `#111`
+      let maxX = Math.max(0,area.clientWidth)
+      let maxY = Math.max(0,area.clientHeight - 100)
+      div.style.left = `${maxX}px`
+      div.style.top = `${Math.floor(Math.random() * maxY)}px`
+      let leftkol = maxX
+      area.append(div)
+      requestAnimationFrame(() => toleft(div, leftkol))
+    }
+
+    function toleft(div, leftkol){
+      div.style.left = `${leftkol = leftkol - 3}px`
+      if (parseInt(div.style.left) <= -100){
+        div.remove()
+      }
+      requestAnimationFrame(() => toleft(div, leftkol))
+    }
+
+    setInterval(randombox,1500)
+  }
+  }
+
+  //20
+  {
+    let area = document.querySelector("[data-js='t20-area']")
+    let scoreout = document.querySelector("[data-js='t20-score']")
+    let score = 0
+    function randombox(){
+      let div = document.createElement('div')
+      div.style.position = 'absolute';
+      div.style.width = `75px`
+      div.style.height = `75px`
+      div.style.background = `#111`
+      let maxX = Math.max(0,area.clientWidth)
+      let maxY = Math.max(0,area.clientHeight - 100)
+      div.style.left = `${maxX}px`
+      div.style.top = `${Math.floor(Math.random() * maxY)}px`
+      let leftkol = maxX
+      area.append(div)
+      requestAnimationFrame(() => toleft(div, leftkol))
+      div.addEventListener('click', (e) =>{
+        score++
+        scoreout.textContent = `${score}`
+        div.remove()
+      })
+    }
+
+    function toleft(div, leftkol){
+      div.style.left = `${leftkol = leftkol - 3}px`
+      if (parseInt(div.style.left) <= -100){
+        div.remove()
+      }
+      requestAnimationFrame(() => toleft(div, leftkol))
+    }
+
+    setInterval(randombox,1500)
+  }
+  
+
+  //21
+  {
+    let area = document.querySelector("[data-js='t21-area']")
+    let scoreout = document.querySelector("[data-js='t21-score']")
+    let livesout = document.querySelector("[data-js='t21-lives']")
+    let gameover = document.querySelector("[data-js='t21-game-over']")
+    let restart = document.querySelector("[data-js='t21-restart']")
+    function randombox(){
+      let div = document.createElement('div')
+      div.style.position = 'absolute';
+      div.style.width = `75px`
+      div.style.height = `75px`
+      div.style.background = `#111`
+      let maxX = Math.max(0,area.clientWidth)
+      let maxY = Math.max(0,area.clientHeight - 100)
+      div.style.left = `${maxX}px`
+      div.style.top = `${Math.floor(Math.random() * maxY)}px`
+      area.append(div)
+      div.addEventListener('click', (e) =>{
+        score++
+        scoreout.textContent = score
+        div.toggleAttribute('hidden')
+      })
+      requestAnimationFrame(() => toleft(div))
+    }
+
+    function toleft(div){
+      if (parseInt(div.style.left) <= -100){
+        div.remove()
+        if (div.hidden == false){
+          lives--
+          livesout.textContent = lives
+        }
+      } 
+      else 
+      {
+        if (lives != 0){
+          div.style.left = `${parseInt(div.style.left)- 3}px`
+          requestAnimationFrame(() => toleft(div))
+        }
+      }
+      if (lives == 0){
+        div.remove()
+        clearInterval(interval)
+        gameover.removeAttribute('hidden')
+      }
+    }
+
+    let interval = setInterval(randombox,1500)
+    let score = 0
+    let lives = 3
+    restart.addEventListener('click', (e) =>{
+      gameover.toggleAttribute('hidden')
+      score = 0
+      scoreout.textContent = score
+      lives = 3
+      livesout.textContent = lives
+      interval = setInterval(randombox,1500)
+    })
+  }
 });

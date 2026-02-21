@@ -584,6 +584,146 @@
         </div>
       </div>
     </section>
+
+    <section class="task" id="task-31">
+      <div class="task__header">
+        <h2 class="task__title">Задача 31 — Финальная рулетка</h2>
+        <span
+          class="hint"
+          tabindex="0"
+          aria-label="Подсказка"
+          title="План решения: 1) создай массив items [{id,name,color,emoji}] 2) сгенерируй карточки в track 3) запусти requestAnimationFrame и сдвигай track через transform 4) по кнопке запускай spin c random loops/extra distance 5) применяй easing для плавного разгона/замедления 6) по завершении вычисли item под указателем 7) заблокируй кнопку на время спина 8) выведи результат и обнови историю последних выпадений."
+          >?</span
+        >
+      </div>
+      <p class="task__desc">
+        Реализуй одну полноценную рулетку: постоянное движение ленты слева
+        направо, запуск спина по кнопке, случайную дистанцию прокрутки
+        (несколько полных циклов + случайный хвост), плавное замедление,
+        определение предмета под центральным указателем и историю последних
+        выпадений.
+      </p>
+      <div class="task__work">
+        <div class="task-area">
+          <p class="mono">
+            Шаги: items → renderTrack → animation loop → spin() →
+            getWinningItem() → renderHistory()
+          </p>
+          <div class="row">
+            <button class="btn" data-js="t31-spin" type="button">
+              Крутить рулетку
+            </button>
+            <output class="pill mono" data-js="t31-result">Выпало: —</output>
+          </div>
+
+          <div class="roulette">
+            <div class="roulette__viewport" data-js="t31-viewport">
+              <div class="roulette__pointer" aria-hidden="true"></div>
+              <div class="roulette__track" data-js="t31-track"></div>
+            </div>
+          </div>
+
+          <div>
+            <p class="field__label">История выпадений</p>
+            <ul class="roulette-history" data-js="t31-history"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="task" id="task-32">
+      <div class="task__header">
+        <h2 class="task__title">
+          Задача 32 — Вывести содержимое большого объекта
+        </h2>
+        <span
+          class="hint"
+          tabindex="0"
+          aria-label="Подсказка"
+          title="Создай большой объект с вложенными массивами/объектами. Достань нужные поля и выведи их на экран (textContent или JSON.stringify для отладки)."
+          >?</span
+        >
+      </div>
+      <p class="task__desc">
+        Обратись к данным большого объекта и покажи их в удобном виде на
+        странице.
+      </p>
+      <div class="task__work">
+        <div class="task-area">
+          <button class="btn" data-js="t32-show" type="button">
+            Показать данные объекта
+          </button>
+          <pre class="object-dump mono" data-js="t32-out">Пока пусто…</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="task" id="task-33">
+      <div class="task__header">
+        <h2 class="task__title">
+          Задача 33 — Один случайный элемент из объекта
+        </h2>
+        <span
+          class="hint"
+          tabindex="0"
+          aria-label="Подсказка"
+          title="Собери элементы из большого объекта в массив и выбери случайный индекс через Math.floor(Math.random() * length)."
+          >?</span
+        >
+      </div>
+      <p class="task__desc">
+        Получи один случайный элемент из большого объекта и выведи его.
+      </p>
+      <div class="task__work">
+        <div class="task-area">
+          <button class="btn" data-js="t33-pick" type="button">
+            Выбрать случайный элемент
+          </button>
+          <output class="pill mono" data-js="t33-out"
+            >Случайный элемент: —</output
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class="task" id="task-34">
+      <div class="task__header">
+        <h2 class="task__title">
+          Задача 34 — Рандомный предмет: картинка, название, описание
+        </h2>
+        <span
+          class="hint"
+          tabindex="0"
+          aria-label="Подсказка"
+          title="По кнопке выбирай случайный предмет и заполняй заранее созданную карточку: img.src, title.textContent, desc.textContent."
+          >?</span
+        >
+      </div>
+      <p class="task__desc">
+        По кнопке вытаскивай случайный предмет из объекта и отображай его в
+        готовой карточке.
+      </p>
+      <div class="task__work">
+        <div class="task-area">
+          <button class="btn" data-js="t34-pick" type="button">
+            Получить случайный предмет
+          </button>
+
+          <article class="item-card" data-js="t34-card">
+            <img
+              class="item-card__image"
+              data-js="t34-image"
+              src="https://placehold.co/240x140?text=Item"
+              alt="Предмет"
+            />
+            <h3 class="item-card__title" data-js="t34-title">
+              Название предмета
+            </h3>
+            <p class="item-card__desc" data-js="t34-desc">Описание предмета.</p>
+          </article>
+        </div>
+      </div>
+    </section>
     <script src="./tooltip.js" defer></script>
     <script src="./script.js" defer></script>
   </body>

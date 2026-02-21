@@ -271,21 +271,25 @@ document.addEventListener("DOMContentLoaded", () => {
     let area = document.querySelector("[data-js='t15-area']")
     let item = document.querySelector("[data-js='t15-item']")
     let drag = false
-    let offsetX, offsetY;
-    item.addEventListener('mousedown', (e) =>{
+    let offsetX
+    let offsetY
+    item.addEventListener('pointerdown', (e) =>{
       drag = true
     })
-    area.addEventListener('mousemove', (e) =>{
+    area.addEventListener('pointermove', (e) =>{
       if (drag == true){
         console.log(e)
-        offsetX = e.clientX;
-        offsetY = e.clientY;
+        offsetX = e.pageX - 80;
+        offsetY = e.pageY - 7770;
         item.style.left = `${offsetX}px`
         item.style.top = `${offsetY}px`
         coords.textContent = `x: ${item.style.left}, y: ${item.style.top}`
       }
     })
-    area.addEventListener('mouseup', (e) =>{
+    document.addEventListener('pointerup', (e) =>{
+      drag = false
+    })
+    area.addEventListener('pointerexit', (e) =>{
       drag = false
     })
   }
@@ -470,5 +474,194 @@ document.addEventListener("DOMContentLoaded", () => {
       livesout.textContent = lives
       interval = setInterval(randombox,1500)
     })
+  }
+
+  //31
+  {
+    function task31(){
+      let spin = document.querySelector("[data-js='t31-spin']")
+      let result = document.querySelector("[data-js='t31-result']")
+      let viewport = document.querySelector("[data-js='t31-viewport']")
+      let track = document.querySelector("[data-js='t31-track']")
+      let history = document.querySelector("[data-js='t31-history']")
+
+      if (!spin || !result || !viewport || !track || !history){
+        console.log("Что-то потерялось")
+        return;
+      }
+
+      const items = [
+        {id: '', name: 'Много сердечек', color: 'rgb(179, 0, 255)', emoji: '💕'},
+        {id: '', name: 'Крутой', color: '#ff4800', emoji: '😎'},
+        {id: '', name: 'Сердечко', color: '#00ffdd', emoji: '❤️'},
+      ]
+      const ITEM_WIDTH = 140;
+      const REPEAT_COUNT = 18;
+      const BASE_SPEED = 3;
+      const SLOT_COUNT = items.length
+      const CYCLE_WIDTH = SLOT_COUNT * ITEM_WIDTH
+      let offset = -CYCLE_WIDTH / 2;
+      let speed = BASE_SPEED;
+      let lastTime = 0;
+      let animationFrameID = null;
+      let isSpinning = false;
+      let historyWinings = [];
+
+      function normalizeOffset(value){
+        let normalized = value;
+        while (normalized >= 0){
+          normalized -= CYCLE_WIDTH
+        }
+        while (normalized < -CYCLE_WIDTH){
+          normalized += CYCLE_WIDTH
+        }
+        return normalized;
+      }
+      function renderTrack(){
+        let html = "";
+        for (let i = 0; i < REPEAT_COUNT; i++){
+          for (const item of items){
+            html += 
+            `
+            <div class="roulette__item" style="background-color: ${item.color}">
+              <div class="roulette__item-emoji">${item.emoji}</div>
+              <div class="roulette__item-name">${item.name}</div>
+            </div>
+            `
+          }
+        }
+        track.innerHTML = html
+        track.style.transform = `tranlateX(${offset}px)`
+      }
+      function tick(time){
+        if (!lastTime){
+          lastTime = time;
+        }
+        offset = normalizeOffset(offset + speed)
+        track.style.transform = `translateX(${offset}px)`;
+        animationFrameID = requestAnimationFrame(tick)
+      }
+      renderTrack()
+      tick()
+    }
+    task31()
+  }
+
+  let cardDatabase = {
+    categories: {
+      major: [
+        { name: "Шут", pathToImage: "", description: "", author: "" },
+        { name: "Маг", pathToImage: "", description: "", author: "" },
+        { name: "Верховная Жрица", pathToImage: "", description: "", author: "" },
+        { name: "Императрица", pathToImage: "", description: "", author: "" },
+        { name: "Император", pathToImage: "", description: "", author: "" },
+        { name: "Иерофант", pathToImage: "", description: "", author: "" },
+        { name: "Влюблённые", pathToImage: "", description: "", author: "" },
+        { name: "Колесница", pathToImage: "", description: "", author: "" },
+        { name: "Сила", pathToImage: "", description: "", author: "" },
+        { name: "Отшельник", pathToImage: "", description: "", author: "" },
+        { name: "Колесо Фортуны", pathToImage: "", description: "", author: "" },
+        { name: "Справедливость", pathToImage: "", description: "", author: "" },
+        { name: "Повешенный", pathToImage: "", description: "", author: "" },
+        { name: "Смерть", pathToImage: "", description: "", author: "" },
+        { name: "Умеренность", pathToImage: "", description: "", author: "" },
+        { name: "Дьявол", pathToImage: "", description: "", author: "" },
+        { name: "Башня", pathToImage: "", description: "", author: "" },
+        { name: "Звезда", pathToImage: "", description: "", author: "" },
+        { name: "Луна", pathToImage: "", description: "", author: "" },
+        { name: "Солнце", pathToImage: "", description: "", author: "" },
+        { name: "Суд", pathToImage: "", description: "", author: "" },
+        { name: "Мир", pathToImage: "", description: "", author: "" },
+      ],
+      minor: {
+        cups: [
+          { name: "Туз Кубков", pathToImage: "", description: "", author: "" },
+          { name: "Двойка Кубков", pathToImage: "", description: "", author: "" },
+          { name: "Тройка Кубков", pathToImage: "", description: "", author: "" },
+          { name: "Четвёрка Кубков", pathToImage: "", description: "", author: "" },
+          { name: "Пятёрка Кубков", pathToImage: "", description: "", author: "" },
+          { name: "Шестёрка Кубков", pathToImage: "", description: "", author: "" },
+          { name: "Семёрка Кубков", pathToImage: "", description: "", author: "" },
+          { name: "Восьмёрка Кубков", pathToImage: "", description: "", author: "" },
+          { name: "Девятка Кубков", pathToImage: "", description: "", author: "" },
+          { name: "Десятка Кубков", pathToImage: "", description: "", author: "" },
+          { name: "Паж Кубков", pathToImage: "", description: "", author: "" },
+          { name: "Рыцарь Кубков", pathToImage: "", description: "", author: "" },
+          { name: "Королева Кубков", pathToImage: "", description: "", author: "" },
+          { name: "Король Кубков", pathToImage: "", description: "", author: "" },
+        ],
+        wands: [
+          { name: "Туз Жезлов", pathToImage: "", description: "", author: "" },
+          { name: "Двойка Жезлов", pathToImage: "", description: "", author: "" },
+          { name: "Тройка Жезлов", pathToImage: "", description: "", author: "" },
+          { name: "Четвёрка Жезлов", pathToImage: "", description: "", author: "" },
+          { name: "Пятёрка Жезлов", pathToImage: "", description: "", author: "" },
+          { name: "Шестёрка Жезлов", pathToImage: "", description: "", author: "" },
+          { name: "Семёрка Жезлов", pathToImage: "", description: "", author: "" },
+          { name: "Восьмёрка Жезлов", pathToImage: "", description: "", author: "" },
+          { name: "Девятка Жезлов", pathToImage: "", description: "", author: "" },
+          { name: "Десятка Жезлов", pathToImage: "", description: "", author: "" },
+          { name: "Паж Жезлов", pathToImage: "", description: "", author: "" },
+          { name: "Рыцарь Жезлов", pathToImage: "", description: "", author: "" },
+          { name: "Королева Жезлов", pathToImage: "", description: "", author: "" },
+          { name: "Король Жезлов", pathToImage: "", description: "", author: "" },
+        ],
+        swords: [
+          { name: "Туз Мечей", pathToImage: "", description: "", author: "" },
+          { name: "Двойка Мечей", pathToImage: "", description: "", author: "" },
+          { name: "Тройка Мечей", pathToImage: "", description: "", author: "" },
+          { name: "Четвёрка Мечей", pathToImage: "", description: "", author: "" },
+          { name: "Пятёрка Мечей", pathToImage: "", description: "", author: "" },
+          { name: "Шестёрка Мечей", pathToImage: "", description: "", author: "" },
+          { name: "Семёрка Мечей", pathToImage: "", description: "", author: "" },
+          { name: "Восьмёрка Мечей", pathToImage: "", description: "", author: "" },
+          { name: "Девятка Мечей", pathToImage: "", description: "", author: "" },
+          { name: "Десятка Мечей", pathToImage: "", description: "", author: "" },
+          { name: "Паж Мечей", pathToImage: "", description: "", author: "" },
+          { name: "Рыцарь Мечей", pathToImage: "", description: "", author: "" },
+          { name: "Королева Мечей", pathToImage: "", description: "", author: "" },
+          { name: "Король Мечей", pathToImage: "", description: "", author: "" },
+        ],
+        pentacles: [
+          { name: "Туз Пентаклей", pathToImage: "", description: "", author: "" },
+          { name: "Двойка Пентаклей", pathToImage: "", description: "", author: "" },
+          { name: "Тройка Пентаклей", pathToImage: "", description: "", author: "" },
+          { name: "Четвёрка Пентаклей", pathToImage: "", description: "", author: "" },
+          { name: "Пятёрка Пентаклей", pathToImage: "", description: "", author: "" },
+          { name: "Шестёрка Пентаклей", pathToImage: "", description: "", author: "" },
+          { name: "Семёрка Пентаклей", pathToImage: "", description: "", author: "" },
+          { name: "Восьмёрка Пентаклей", pathToImage: "", description: "", author: "" },
+          { name: "Девятка Пентаклей", pathToImage: "", description: "", author: "" },
+          { name: "Десятка Пентаклей", pathToImage: "", description: "", author: "" },
+          { name: "Паж Пентаклей", pathToImage: "", description: "", author: "" },
+          { name: "Рыцарь Пентаклей", pathToImage: "", description: "", author: "" },
+          { name: "Королева Пентаклей", pathToImage: "", description: "", author: "" },
+          { name: "Король Пентаклей", pathToImage: "", description: "", author: "" },
+        ],
+      },
+    },
+  };
+
+  //32
+  {
+    let show = document.querySelector("[data-js='t32-show']")
+    let out = document.querySelector("[data-js='t32-out']")
+    show.addEventListener('click', (e) =>{
+      out.innerHTML = `<div>${JSON.stringify(cardDatabase)}</div>`
+    })
+  }
+  //33
+  {
+    let pick = document.querySelector("[data-js='t33-pick']")
+    let out = document.querySelector("[data-js='t33-out']")
+    pick.addEventListener('click', (e) => {
+      let categiria = randDeep(cardDatabase)
+      //out.innerHTML = `<div>${cardDatabase[0][]}</div>`
+      
+    })
+
+    function randDeep (length){
+      return Math.floor(Math.random * length)
+    }
   }
 });
